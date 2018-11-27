@@ -18,7 +18,7 @@ function getBody({ isOpen, article }) {
   return (
     <section>
       <div>{article.text}</div>
-      <ArticleComments comments={article.comments} />
+      <ArticleComments comments={article.comments} articleId={article.id} />
     </section>
   )
 }
