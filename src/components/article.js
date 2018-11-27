@@ -1,4 +1,5 @@
 import React from 'react'
+import ArticleComments from './article-comments'
 
 function Article(props) {
   const { article, isOpen, toggleOpen } = props
@@ -14,7 +15,12 @@ function Article(props) {
 function getBody({ isOpen, article }) {
   if (!isOpen) return null
 
-  return <section>{article.text}</section>
+  return (
+    <section>
+      <div>{article.text}</div>
+      <ArticleComments comments={article.comments} />
+    </section>
+  )
 }
 
 export default Article

@@ -21,7 +21,7 @@ class App extends Component {
           options={this.getOptions()}
           value={this.state.selected}
           onChange={this.handleSelectionChange}
-          isMulti
+          isMulti="isMulti"
         />
         <ArticleList articles={articles} ref={this.setArticleListRef} />
         <ArticlesChart articles={articles} />
@@ -29,11 +29,7 @@ class App extends Component {
     )
   }
 
-  getOptions = () =>
-    articles.map((article) => ({
-      value: article.id,
-      label: article.title
-    }))
+  getOptions = () => articles.map((article) => ({ value: article.id, label: article.title }))
 
   setArticleListRef = (ref) => {
     window.articleList = ref
