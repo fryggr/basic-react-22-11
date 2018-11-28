@@ -1,15 +1,13 @@
 import React from 'react'
 import Comment from './comment'
-import accordion from '../decorators/accordion'
+import accordion from '../decorators/accordion-comments'
 
 class ArticleComments extends React.Component {
   render() {
-    const { comments, articleId, openItemId, toggleOpenItem } = this.props
+    const { comments, openItemId, toggleOpenItem } = this.props
     return typeof comments !== 'undefined' ? (
       <div>
-        <button onClick={toggleOpenItem(articleId)}>
-          {openItemId ? 'hide comments' : 'show comments'}
-        </button>
+        <button onClick={toggleOpenItem}>{openItemId ? 'hide comments' : 'show comments'}</button>
         {openItemId ? (
           <ul>
             {comments.map((comment) => (
