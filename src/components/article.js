@@ -1,5 +1,6 @@
 import React from 'react'
 import CommentList from './comment-list'
+import PropTypes from 'prop-types'
 
 function Article(props) {
   const { article, isOpen, toggleOpen } = props
@@ -23,6 +24,12 @@ function getBody({ isOpen, article }) {
       <CommentList comments={article.comments} />
     </section>
   )
+}
+
+Article.proptypes = {
+  article: PropTypes.object,
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func
 }
 
 export default Article
