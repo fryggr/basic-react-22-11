@@ -1,29 +1,37 @@
-import React from 'react'
+import React, { Component } from 'react'
 import CommentList from './comment-list'
 import PropTypes from 'prop-types'
 
-function Article(props) {
-  const { article, isOpen, toggleOpen } = props
-  return (
-    <div>
-      <h3>{article.title}</h3>
-      <button onClick={toggleOpen} className="test__article--btn">
-        {isOpen ? 'close' : 'open'}
-      </button>
-      {getBody(props)}
-    </div>
-  )
-}
+class Article extends Component {
+  componentDidMount() {
+    const { fetchAllArticles } = this.props
 
-function getBody({ isOpen, article }) {
-  if (!isOpen) return null
+    fetchAllArticles && fetchAllArticles()
+  }
 
-  return (
-    <section className="test__article--body">
-      {article.text}
-      <CommentList comments={article.comments} />
-    </section>
-  )
+  getBody = (isOpen, article) => {
+    if (!isOpen) return null
+
+    return (
+      <section className="test__article--body">
+        <div className="test__article-text">{article.text}</div>
+        <CommentList comments={article.comments} />
+      </section>
+    )
+  }
+
+  render() {
+    const { article, isOpen, toggleOpen } = this.props
+    return (
+      <div>
+        <h3>{article.title}</h3>
+        <button onClick={toggleOpen} className="test__article--btn">
+          {isOpen ? 'close' : 'open'}
+        </button>
+        {this.getBody(isOpen, article)}
+      </div>
+    )
+  }
 }
 
 Article.proptypes = {
