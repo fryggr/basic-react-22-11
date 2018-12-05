@@ -35,8 +35,8 @@ export class ArticleList extends Component {
   }
 
   articleItems() {
-    const { articles, openItemId, toggleOpenItem } = this.props
-    return articles.map((article) => (
+    const { visiblesArticles, openItemId, toggleOpenItem } = this.props
+    return visiblesArticles.map((article) => (
       <li key={article.id} className="test__article-list--item">
         <Article
           article={article}
@@ -49,5 +49,5 @@ export class ArticleList extends Component {
 }
 
 export default connect((state) => ({
-  articles: state.articles
+  visiblesArticles: state.articles.visiblesArticles
 }))(accordion(ArticleList))

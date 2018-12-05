@@ -17,5 +17,5 @@ class Filters extends Component {
 }
 
 export default connect((state) => ({
-  articles: state.articles
+  articles: state.articles.articles
 }))(Filters)

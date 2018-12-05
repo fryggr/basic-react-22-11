@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import { connect } from 'react-redux'
+import { filterArticles } from '../../ac'
 
 class SelectFilter extends Component {
   state = {
@@ -8,7 +10,9 @@ class SelectFilter extends Component {
 
   handleChange = (selected) => {
     this.setState({ selected })
-    console.log(selected)
+
+    const { filterArticles, articles } = this.props
+    filterArticles(selected)
   }
 
   get options() {
@@ -30,4 +34,7 @@ class SelectFilter extends Component {
   }
 }
 
-export default SelectFilter
+export default connect(
+  null,
+  { filterArticles }
+)(SelectFilter)
