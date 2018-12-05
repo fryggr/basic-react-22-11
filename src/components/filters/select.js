@@ -6,7 +6,10 @@ class SelectFilter extends Component {
     selected: null
   }
 
-  handleChange = (selected) => this.setState({ selected })
+  handleChange = (selected) => {
+    this.setState({ selected })
+    console.log(selected)
+  }
 
   get options() {
     return this.props.articles.map((article) => ({
