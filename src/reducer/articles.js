@@ -1,11 +1,14 @@
 import defaultArticles from '../fixtures'
-import { DELETE_ARTICLE } from '../constants'
-import { FILTER_ARTICLES } from '../constants'
-import { FILTER_DATE_ARTICLES } from '../constants'
+import { DELETE_ARTICLE, FILTER_ARTICLES, FILTER_DATE_ARTICLES } from '../constants'
 
 const initialState = {
   articles: defaultArticles,
-  visiblesArticles: defaultArticles
+  visiblesArticles: defaultArticles,
+  selectOption: null,
+  selectDate: {
+    from: null,
+    to: null
+  }
 }
 
 export default (state = initialState, action) => {
@@ -13,7 +16,7 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case DELETE_ARTICLE:
-      const visiblesArticles = state.articles.filter((article) => article.id !== payload.id)
+      let visiblesArticles = state.articles.filter((article) => article.id !== payload.id)
 
       return {
         ...state,
@@ -21,24 +24,30 @@ export default (state = initialState, action) => {
       }
 
     case FILTER_ARTICLES:
+      const selectOption = payload.filter
       visiblesArticles = state.articles.filter(
         (article) => payload.filter.findIndex((item) => item.value === article.id) !== -1
       )
 
       return {
         ...state,
-        visiblesArticles
+        visiblesArticles,
+        selectOption
       }
 
-    // case FILTER_DATE_ARTICLES:
-    //     // const visiblesArticles = state.articles.filter(
-    //     //   (article) => payload.filter.findIndex((item) => item.value === article.id) !== -1
-    //     // )
-    //
-    //     return {
-    //       ...state,
-    //       visiblesArticles
-    //     }
+    case FILTER_DATE_ARTICLES:
+      const selectDate = payload.date
+      const from = +new Date(selectDate.from)
+      const to = +new Date(selectDate.to)
+      visiblesArticles = state.articles.filter(
+        (article) => +new Date(article.date) <= to && +new Date(article.date) >= from
+      )
+
+      return {
+        ...state,
+        visiblesArticles,
+        selectDate
+      }
 
     default:
       return state

@@ -4,13 +4,7 @@ import { connect } from 'react-redux'
 import { filterArticles } from '../../ac'
 
 class SelectFilter extends Component {
-  state = {
-    selected: null
-  }
-
   handleChange = (selected) => {
-    this.setState({ selected })
-
     const { filterArticles, articles } = this.props
     filterArticles(selected)
   }
@@ -23,18 +17,16 @@ class SelectFilter extends Component {
   }
 
   render() {
+    const { selectOption } = this.props
     return (
-      <Select
-        options={this.options}
-        value={this.state.selected}
-        onChange={this.handleChange}
-        isMulti
-      />
+      <Select options={this.options} value={selectOption} onChange={this.handleChange} isMulti />
     )
   }
 }
 
 export default connect(
-  null,
+  (state) => ({
+    selectOption: state.articles.selectOption
+  }),
   { filterArticles }
 )(SelectFilter)
