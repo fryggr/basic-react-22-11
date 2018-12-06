@@ -1,6 +1,7 @@
 import defaultArticles from '../fixtures'
 import { DELETE_ARTICLE } from '../constants'
 import { FILTER_ARTICLES } from '../constants'
+import { FILTER_DATE_ARTICLES } from '../constants'
 
 const initialState = {
   articles: defaultArticles,
@@ -12,15 +13,15 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case DELETE_ARTICLE:
-      const articles = state.articles.filter((article) => article.id !== payload.id)
+      const visiblesArticles = state.articles.filter((article) => article.id !== payload.id)
 
       return {
         ...state,
-        articles
+        visiblesArticles
       }
 
     case FILTER_ARTICLES:
-      const visiblesArticles = state.articles.filter(
+      visiblesArticles = state.articles.filter(
         (article) => payload.filter.findIndex((item) => item.value === article.id) !== -1
       )
 
@@ -28,6 +29,16 @@ export default (state = initialState, action) => {
         ...state,
         visiblesArticles
       }
+
+    // case FILTER_DATE_ARTICLES:
+    //     // const visiblesArticles = state.articles.filter(
+    //     //   (article) => payload.filter.findIndex((item) => item.value === article.id) !== -1
+    //     // )
+    //
+    //     return {
+    //       ...state,
+    //       visiblesArticles
+    //     }
 
     default:
       return state
